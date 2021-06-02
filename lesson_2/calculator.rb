@@ -7,8 +7,16 @@ def prompt(msg)
   Kernel.puts("=> #{msg}")
 end
 
+def integer?(num)
+  Integer(num) rescue false
+end
+
+def float?(num)
+  Float(num) rescue false 
+end
+
 def valid_number?(num)
-  num.to_i() != 0
+  integer?(num) || float?(num)
 end
 
 def get_number(msg)
@@ -16,7 +24,11 @@ def get_number(msg)
     prompt(msg)
     num = Kernel.gets.chomp
     if valid_number?(num)
-      return num.to_i
+      if integer?(num)
+        return num.to_i
+      else
+        return num.to_f
+      end
     else
       prompt("It does not look like a number")
     end
@@ -24,16 +36,16 @@ def get_number(msg)
 end
 
 def operation_to_msg(operator)
-  case operator
-  when "1"
-    msg = "Adding"
-  when "2"
-    msg = "Substracting"
-  when "3"
-    msg = "Multiplying"
-  when "4"
-    msg = "Dividing"
-  end
+  msg = case operator
+        when "1"
+          "Adding"
+        when "2"
+          "Substracting"
+        when "3"
+          "Multiplying"
+        when "4"
+          "Dividing"
+        end
 
   msg
 end
