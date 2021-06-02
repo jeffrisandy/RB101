@@ -3,6 +3,9 @@
 # perform operation on the two number
 # output the result
 
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
 def prompt(msg)
   Kernel.puts("=> #{msg}")
 end
@@ -50,13 +53,13 @@ def operation_to_msg(operator)
   msg
 end
 
-prompt("Welcome to Calculator! Enter your name:")
+prompt(MESSAGES['welcome'])
 
 name = ""
 loop do
   name = Kernel.gets.chomp
   if name.empty?
-    prompt("Make sure to use a valid name!.")
+    prompt(MESSAGES['valid_name'])
   else
     break
   end
